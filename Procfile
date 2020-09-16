@@ -1,1 +1,1 @@
-Worker: colford.py
+worker: colford.py
