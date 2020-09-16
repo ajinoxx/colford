@@ -1,8 +1,6 @@
 import discord
 import time
 from discord.ext import commands
-from boto.s3.connection import S3Connection
-s3 = S3Connection(os.environ['token'])
 
 client = commands.Bot(command_prefix = '.')
 
