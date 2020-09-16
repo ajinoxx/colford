@@ -86,4 +86,4 @@ async def uidCheck(ctx, uid):
     await ctx.send(uid[3:len(uid)-1])
 
 
-client.run(s3)
+client.run(os.environ['token'])
