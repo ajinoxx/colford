@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 #scheduler
 import time
-import schedule
+#import schedule
 from datetime import datetime
 #import parallelScheduler
 #heroku
