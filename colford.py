@@ -84,7 +84,8 @@ async def clearUser(ctx, tag : discord.abc.User, amount=10):
 @client.command(aliases=['m'])
 async def mute(ctx, tag : discord.Member):
     if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
-        await tag.add_roles(muteID)
+        muteRole = discord.utils.get(ctx.guild.roles, id=muteID)
+        await tag.add_roles(muteRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) muted {tag.mention} ({tag.name})')
     else:
         ctx.send("You don't have permission to use this command.")
@@ -92,10 +93,15 @@ async def mute(ctx, tag : discord.Member):
 @client.command(aliases=['um'])
 async def unmute(ctx, tag : discord.Member):
     if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
-        await tag.remove_roles(muteID)
+        muteRole = discord.utils.get(ctx.guild.roles, id=muteID)
+        await tag.remove_roles(muteRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) unmuted {tag.mention} ({tag.name})')
     else:
         ctx.send("You don't have permission to use this command.")
+
+@client.command(aliases=['v'])
+async def version(ctx):
+    ctx.send('Bot version 1.3')
 #@client.command(aliases=['u'])
 #async def uidCheck(ctx, uid):
     #await ctx.send(uid[3:len(uid)-1])
