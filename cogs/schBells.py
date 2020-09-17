@@ -19,14 +19,16 @@ class schBells(commands.Cog):
     async def schBells(self):
         dayOfWeek = datetime.date.today().weekday()
         currentTime = datetime.datetime.now().strftime('%H:%M')
-        #currentSec = datetime.datetime.now().strftime('%S')
+        currentSec = datetime.datetime.now().strftime('%S')       
 
         tServer = self.client.get_guild(tServerID)
         tChannel = tServer.get_channel(tChannelID)
         tRole = tServer.get_role(tRoleID)
 
         if  dayOfWeek != 5 and dayOfWeek != 6:
-            
+            print("It's a day of the week")
+            print(f"It's {currentSec} into the minute")
+
             if currentTime == '07:23':
                 print('Period 1 starts in 5 minutes!')
                 await tChannel.send(f'{tRole.mention} Period 1 starts in 5 minutes!')
