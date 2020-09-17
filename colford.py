@@ -1,7 +1,12 @@
+#discord.py 
 import discord
-import time
-from datetime import datetime
 from discord.ext import commands
+#scheduler
+import time
+import schedule
+from datetime import datetime
+#import parallelScheduler
+#heroku
 import os
 
 client = commands.Bot(command_prefix = '.')
@@ -12,15 +17,15 @@ mainID = 753429614465908817 #754438628758913098 #test
 adminID = 627267659364302848 #754449876401520846 #test
 starterID = 543187460021288960 #754449876401520846 #test
 apID = 543619723842158622
+myID = 191334024612937729
 
 muteID = 543921175722721289
 
 trooperID = 262622460321464321
 
 #TODO
-#Disconnect joe at random times when he joins a vc
-#Make sure joe stays roleless on join -DONE
-
+#Grab time, ping @bell for changing of periods in seperate chat, as well as the 5-min warnings
+#For .cu, make while loop len(deletedMessages) <= amount, purge(limit=None, check=is_user), but check a way to prevent infinite loop/time (wait_for?), maybe while loop len(dM) and timeTaken < 3seconds?
 
 @client.event
 async def on_ready():
@@ -45,7 +50,7 @@ async def on_member_remove(member):
 
 @client.command(aliases=['p'])
 async def ping(ctx):
-    if ctx.author.id == 191334024612937729:
+    if ctx.author.id == myID:
         await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 @client.command(aliases=['c'])
@@ -111,24 +116,43 @@ async def unmute(ctx, tag : discord.Member):
 
 @client.command(aliases=['v'])
 async def version(ctx):
-    if ctx.author.id == 191334024612937729:
-        await ctx.send('Bot version 1.1.0')
+    if ctx.author.id == myID:
+        await ctx.send('Bot version 1.2.0')
 
-@client.command()
-async def cum(ctx):
-    if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles) and discord.utils.find(lambda r: r.id == apID, ctx.message.author.roles):
-        await ctx.send("You're good to go for cum.")
-    else:
-        await ctx.send("No cumming allowed.")
-        
 @client.command()
 async def dow(ctx):
     #await ctx.send(time.struct_time().tm_wday)#datetime.date.today().weekday())
     await ctx.send(datetime.now().strftime("%H:%M:%S"))
-        
+
+@client.command()
+async def load(ctx, extension):
+    if ctx.author.id == myID:
+        client.load_extension(f'cogs.{extension}')
+        ctx.send('Loaded extension!')
+    else:
+        ctx.send("You don't have permission to use this command.")
+
+@client.command()
+async def unload(ctx, extension):
+    if ctx.author.id == myID:
+        client.unload_extension(f'cogs.{extension}')
+        ctx.send('Unloaded extension!')
+    else:
+        ctx.send("You don't have permission to use this command.")
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+
+#@client.command()
+#async def cum(ctx):
+#    if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles) and discord.utils.find(lambda r: r.id == apID, ctx.message.author.roles):
+#        await ctx.send("You're good to go for cum.")
+#    else:
+#        await ctx.send("No cumming allowed.")
+
 #@client.command(aliases=['u'])
 #async def uidCheck(ctx, uid):
     #await ctx.send(uid[3:len(uid)-1])
-
 
 client.run(os.environ['token'])
