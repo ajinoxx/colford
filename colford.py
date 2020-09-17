@@ -1,5 +1,6 @@
 import discord
 import time
+from datetime import datetime
 from discord.ext import commands
 import os
 
@@ -119,6 +120,12 @@ async def cum(ctx):
         await ctx.send("You're good to go for cum.")
     else:
         await ctx.send("No cumming allowed.")
+        
+@client.command()
+async def dow(ctx):
+    #await ctx.send(time.struct_time().tm_wday)#datetime.date.today().weekday())
+    await ctx.send(datetime.now().strftime("%H:%M:%S"))
+        
 #@client.command(aliases=['u'])
 #async def uidCheck(ctx, uid):
     #await ctx.send(uid[3:len(uid)-1])
