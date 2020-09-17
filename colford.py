@@ -88,7 +88,7 @@ async def mute(ctx, tag : discord.Member):
         await tag.add_roles(muteRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) muted {tag.mention} ({tag.name})')
     else:
-        ctx.send("You don't have permission to use this command.")
+        await ctx.send("You don't have permission to use this command.")
 
 @client.command(aliases=['um'])
 async def unmute(ctx, tag : discord.Member):
@@ -97,11 +97,11 @@ async def unmute(ctx, tag : discord.Member):
         await tag.remove_roles(muteRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) unmuted {tag.mention} ({tag.name})')
     else:
-        ctx.send("You don't have permission to use this command.")
+        await ctx.send("You don't have permission to use this command.")
 
 @client.command(aliases=['v'])
 async def version(ctx):
-    ctx.send('Bot version 1.3')
+    await ctx.send('Bot version 1.0.4')
 #@client.command(aliases=['u'])
 #async def uidCheck(ctx, uid):
     #await ctx.send(uid[3:len(uid)-1])
