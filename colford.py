@@ -43,7 +43,8 @@ async def on_member_remove(member):
 
 @client.command(aliases=['p'])
 async def ping(ctx):
-    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+    if ctx.author.id == 191334024612937729:
+        await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 @client.command(aliases=['c'])
 async def clear(ctx, amount=5):
@@ -85,7 +86,9 @@ async def clearUser(ctx, tag : discord.abc.User, amount=10):
 async def mute(ctx, tag : discord.Member):
     if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
         muteRole = discord.utils.get(ctx.guild.roles, id=muteID)
+        starterRole = discord.utils.get(ctx.guild.roles, id=starterID)
         await tag.add_roles(muteRole)
+        await tag.remove_roles(starterRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) muted {tag.mention} ({tag.name})')
     else:
         await ctx.send("You don't have permission to use this command.")
@@ -94,14 +97,17 @@ async def mute(ctx, tag : discord.Member):
 async def unmute(ctx, tag : discord.Member):
     if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
         muteRole = discord.utils.get(ctx.guild.roles, id=muteID)
+        starterRole = discord.utils.get(ctx.guild.roles, id=starterID)
         await tag.remove_roles(muteRole)
+        await tag.add_roles(starterRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) unmuted {tag.mention} ({tag.name})')
     else:
         await ctx.send("You don't have permission to use this command.")
 
 @client.command(aliases=['v'])
 async def version(ctx):
-    await ctx.send('Bot version 1.0.4')
+    if ctx.author.id == 191334024612937729:
+        await ctx.send('Bot version 1.0.5')
 #@client.command(aliases=['u'])
 #async def uidCheck(ctx, uid):
     #await ctx.send(uid[3:len(uid)-1])
