@@ -5,18 +5,19 @@ import os
 
 client = commands.Bot(command_prefix = '.')
 
-logsID = 755893521478582409
-mainID = 754438628758913098
+logsID = 645817145007144981 #755893521478582409 #test
+mainID = 753429614465908817 #754438628758913098 #test
 
-adminID = 754449876401520846
-starterID = 754449876401520846
+adminID = 627267659364302848 #754449876401520846 #test
+starterID = 543187460021288960 #754449876401520846 #test
+
+muteID = 543921175722721289
 
 trooperID = 262622460321464321
 
 #TODO
 #Disconnect joe at random times when he joins a vc
-#Make sure joe stays roleless on join
-
+#Make sure joe stays roleless on join -DONE
 
 
 @client.event
@@ -80,9 +81,24 @@ async def clearUser(ctx, tag : discord.abc.User, amount=10):
     except:
         print('Must enter valid amount and user tag.')
 
-@client.command(aliases=['u'])
-async def uidCheck(ctx, uid):
-    await ctx.send(uid[3:len(uid)-1])
+@client.command(aliases=['m'])
+async def mute(ctx, tag : discord.Member)
+    if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
+        await tag.add_roles(muteID)
+        await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) muted {tag.mention} ({tag.name})')
+    else:
+        ctx.send("You don't have permission to use this command.")
+
+@client.command(aliases=['um'])
+async def unmute(ctx, tag : discord.Member)
+    if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
+        await tag.remove_roles(muteID)
+        await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) unmuted {tag.mention} ({tag.name})')
+    else:
+        ctx.send("You don't have permission to use this command.")
+#@client.command(aliases=['u'])
+#async def uidCheck(ctx, uid):
+    #await ctx.send(uid[3:len(uid)-1])
 
 
 client.run(os.environ['token'])
