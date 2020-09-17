@@ -72,13 +72,13 @@ async def clearUser(ctx, tag : discord.abc.User, amount=10):
         if amount <= 0:
             await ctx.send('Cannot clear an amount less than 1.')
             return
-        elif discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):            
-            await ctx.message.delete()
+        elif discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):                       
             deleted = await ctx.channel.purge(limit=amount, check=is_user)
             print(f'{ctx.message.author} has admin role, searching {amount} messages from {tag.name}. Cleared {len(deleted)} messages in {ctx.channel}.')
             numMessage = await ctx.send(f'Searched {amount} messages, cleared {len(deleted)} messages from {tag.name}.')
             await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) searched {amount} messages, cleared {len(deleted)} messages from {tag.mention} ({tag}) in {ctx.channel.mention} ({ctx.channel}).')
             await numMessage.delete(delay=5)
+            await ctx.message.delete(delay=None)
         else:
             await ctx.send('You don\'t have the permissions to do that.')
     except:
