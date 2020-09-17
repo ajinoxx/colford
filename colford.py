@@ -82,7 +82,7 @@ async def clearUser(ctx, tag : discord.abc.User, amount=10):
         print('Must enter valid amount and user tag.')
 
 @client.command(aliases=['m'])
-async def mute(ctx, tag : discord.Member)
+async def mute(ctx, tag : discord.Member):
     if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
         await tag.add_roles(muteID)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) muted {tag.mention} ({tag.name})')
@@ -90,7 +90,7 @@ async def mute(ctx, tag : discord.Member)
         ctx.send("You don't have permission to use this command.")
 
 @client.command(aliases=['um'])
-async def unmute(ctx, tag : discord.Member)
+async def unmute(ctx, tag : discord.Member):
     if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
         await tag.remove_roles(muteID)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) unmuted {tag.mention} ({tag.name})')
