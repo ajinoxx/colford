@@ -114,7 +114,7 @@ async def version(ctx):
         await ctx.send('Bot version 1.1.0')
 
 @client.command()
-async def cum(ctx)
+async def cum(ctx):
     if discord.utils.find(lambda r: r.id == adminID and r.id == apID, ctx.message.author.roles):
         ctx.send("You're good to go for cum.")
     else:
