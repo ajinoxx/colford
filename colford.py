@@ -116,9 +116,9 @@ async def version(ctx):
 @client.command()
 async def cum(ctx):
     if discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles) and discord.utils.find(lambda r: r.id == apID, ctx.message.author.roles):
-        ctx.send("You're good to go for cum.")
+        await ctx.send("You're good to go for cum.")
     else:
-        ctx.send("No cumming allowed.")
+        await ctx.send("No cumming allowed.")
 #@client.command(aliases=['u'])
 #async def uidCheck(ctx, uid):
     #await ctx.send(uid[3:len(uid)-1])
