@@ -10,6 +10,7 @@ mainID = 753429614465908817 #754438628758913098 #test
 
 adminID = 627267659364302848 #754449876401520846 #test
 starterID = 543187460021288960 #754449876401520846 #test
+apID = 543619723842158622
 
 muteID = 543921175722721289
 
@@ -72,6 +73,7 @@ async def clearUser(ctx, tag : discord.abc.User, amount=10):
             await ctx.send('Cannot clear an amount less than 1.')
             return
         elif discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):            
+            await ctx.message.delete()
             deleted = await ctx.channel.purge(limit=amount, check=is_user)
             print(f'{ctx.message.author} has admin role, searching {amount} messages from {tag.name}. Cleared {len(deleted)} messages in {ctx.channel}.')
             numMessage = await ctx.send(f'Searched {amount} messages, cleared {len(deleted)} messages from {tag.name}.')
@@ -90,6 +92,7 @@ async def mute(ctx, tag : discord.Member):
         await tag.add_roles(muteRole)
         await tag.remove_roles(starterRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) muted {tag.mention} ({tag.name})')
+        await ctx.send(f'Muted {tag.mention}')
     else:
         await ctx.send("You don't have permission to use this command.")
 
@@ -101,13 +104,21 @@ async def unmute(ctx, tag : discord.Member):
         await tag.remove_roles(muteRole)
         await tag.add_roles(starterRole)
         await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) unmuted {tag.mention} ({tag.name})')
+        await ctx.send(f'Unmuted {tag.mention}')
     else:
         await ctx.send("You don't have permission to use this command.")
 
 @client.command(aliases=['v'])
 async def version(ctx):
     if ctx.author.id == 191334024612937729:
-        await ctx.send('Bot version 1.0.5')
+        await ctx.send('Bot version 1.1.0')
+
+@client.command()
+async def cum(ctx)
+    if discord.utils.find(lambda r: r.id == adminID and r.id == apID, ctx.message.author.roles):
+        ctx.send("You're good to go for cum.")
+    else:
+        ctx.send("No cumming allowed.")
 #@client.command(aliases=['u'])
 #async def uidCheck(ctx, uid):
     #await ctx.send(uid[3:len(uid)-1])
