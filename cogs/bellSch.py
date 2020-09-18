@@ -19,7 +19,7 @@ class bellSch(commands.Cog):
     async def on_ready(self):
         print('SchBot ready')
 
-    @commands.command(aliases=['sch, sched'])
+    @commands.command(aliases=['sch', 'sched'])
     async def schedule(self, ctx):
         userDM = ctx.author.dm_channel
         if userDM == None:
