@@ -1,11 +1,9 @@
 #discord.py 
 import discord
 from discord.ext import commands
-#scheduler
+#time
 import time
-#import schedule
 from datetime import datetime
-#import parallelScheduler
 #heroku
 import os
 
@@ -36,6 +34,7 @@ async def on_member_join(member):
     print(f'{member} joined the server.')
     mainChannel = client.get_channel(mainID)
     await mainChannel.send(f'{member.mention} ({member}) joined the server.')
+    await member.dm_channel.send("Welcome to Biggus Brainus!\nIf you'd like to get notified on class bell updates, make you sure you check out the roles channel.")
     if member.id != trooperID:
         role = discord.utils.get(member.guild.roles, id=starterID) #Make sure IrvinsMom role is ABOVE the target role
         await member.add_roles(role)
