@@ -54,6 +54,9 @@ class bellSch(commands.Cog):
                 print('Period 1 has ended!')
                 await tChannel.send(f'{tRole.mention} Period 1 has ended!')
             
+            elif currentTime == '08:12':
+                print('Period 2 starts in 5 minutes!')
+                await tChannel.send(f'{tRole.mention} Period 2 starts in 5 minutes!')
             elif currentTime == '08:17':
                 print('Period 2 has started!')
                 await tChannel.send(f'{tRole.mention} Period 2 has started!')
