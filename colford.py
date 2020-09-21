@@ -17,6 +17,9 @@ starterID = 543187460021288960 #754449876401520846 #test
 apID = 543619723842158622
 myID = 191334024612937729
 
+bellMsgID = 757598815351078962
+bellRoleID = 756238148404510802
+
 muteID = 543921175722721289
 
 trooperID = 262622460321464321
@@ -45,7 +48,31 @@ async def on_member_remove(member):
     mainChannel = client.get_channel(mainID)
     await mainChannel.send(f'{member.mention} ({member}) left the server.')
 
+@client.event
+async def on_raw_reaction_add(payload):
+    print('Someone has reacted to a message.')
+    if payload.message_id == bellMsgID and payload.emoji.name == 'bell':
+        print('Someone has added a bell to the bell message.')
+        guildObj = client.get_guild(payload.guild_id)
+        memObj = guildObj.get_member(payload.user_id)
+        if memObj != None:
+            roleObj = guildObj.get_role(bellRoleID)
+            await memObj.add_roles(roleObj)
+            print(f'{memObj} got the role of {roleObj.name}')
 
+@client.event
+async def on_raw_reaction_remove(payload):
+    print('Someone has removed a reaction to a message.')
+    if payload.message_id == bellMsgID and payload.emoji.name == 'bell':
+        print('Someone has removed a bell from the bell message.')
+        guildObj = client.get_guild(payload.guild_id)
+        memObj = guildObj.get_member(payload.user_id)
+        if memObj != None:
+            if discord.utils.find(lambda r: r.id == bellRoleID,memObj.roles):
+                print('Member that removed the reaction has the bell role.')
+                roleObj = guildObj.get_role(bellRoleID)
+                await memObj.remove_role(roleObj)
+                print(f'{memObj} lost the role of {roleObj.name}')
 
 @client.command(aliases=['p'])
 async def ping(ctx):
