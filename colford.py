@@ -71,7 +71,7 @@ async def on_raw_reaction_remove(payload):
             if discord.utils.find(lambda r: r.id == bellRoleID,memObj.roles):
                 print('Member that removed the reaction has the bell role.')
                 roleObj = guildObj.get_role(bellRoleID)
-                await memObj.remove_role(roleObj)
+                await memObj.remove_roles(roleObj)
                 print(f'{memObj} lost the role of {roleObj.name}')
 
 @client.command(aliases=['p'])
