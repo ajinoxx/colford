@@ -50,7 +50,7 @@ async def on_member_remove(member):
 
 @client.event
 async def on_raw_reaction_add(payload):
-    print('Someone has reacted to a message.')
+    print(f'Someone has reacted ({payload.emoji.name}) to a message.')
     if payload.message_id == bellMsgID and payload.emoji.name.lower() == 'bell':
         print('Someone has added a bell to the bell message.')
         guildObj = client.get_guild(payload.guild_id)
@@ -62,7 +62,7 @@ async def on_raw_reaction_add(payload):
 
 @client.event
 async def on_raw_reaction_remove(payload):
-    print('Someone has removed a reaction to a message.')
+    print(f'Someone has removed a reaction ({payload.emoji.name})to a message.')
     if payload.message_id == bellMsgID and payload.emoji.name.lower() == 'bell':
         print('Someone has removed a bell from the bell message.')
         guildObj = client.get_guild(payload.guild_id)
