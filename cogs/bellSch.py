@@ -47,6 +47,10 @@ class bellSch(commands.Cog):
             else:
                 ctx.send('Please input a proper date.')
 
+    @commands.command(aliases=['hl'])
+    async def holidayslist(self, ctx):
+        await ctx.send(holidays)
+
     @tasks.loop(seconds=3, count=None, reconnect=True)
     async def bellSch(self):
         dayOfWeek = datetime.date.today().weekday()
