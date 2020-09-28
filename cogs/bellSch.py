@@ -33,7 +33,6 @@ class bellSch(commands.Cog):
             month = int(str(date)[0:2])
             days = int(str(date)[3:])
             if month > 12:
-                print('Month > 12')
                 return False
             elif month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
                 if days <= 31:
@@ -61,8 +60,11 @@ class bellSch(commands.Cog):
     @commands.command(aliases=['ah', 'aholiday'])
     async def addholiday(self, ctx, date=''):
         if ctx.author.id == self.myID:
+            if date == '':
+                date = datetime.datetime.now().strftime('%m/%d')
             if self.checkFormat(date):
                 self.holidays.append(str(date))
+                self.holidays.sort()
                 await ctx.send(f'Added holiday, {date}!')
             else:
                 await ctx.send('Please input a proper date.')
