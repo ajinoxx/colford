@@ -6,26 +6,26 @@ import datetime
 #TODO
 # Make the loop wait the remainder time, starting the loop at 00 seconds
 
-tServerID = 543185885232103434 #Big brainus
-tChannelID = 756194795411603547 #bells
-tRoleID = 756238148404510802
-myID = 191334024612937729
-
-holidays = ['0928', '1012', '1111', '1126', '1127']
-
-def checkHoliday(cdate):
-        print('checkHoliday was called')
-        isHoliday = False
-        for d in holidays:
-            if cdate == d:
-                isHoliday = True
-                break
-        return isHoliday
-
 class bellSch(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.bellSch.start()
+        self.client.bellSch.start()
+
+        self.tServerID = 543185885232103434 #Big brainus
+        self.tChannelID = 756194795411603547 #bells
+        self.tRoleID = 756238148404510802
+        self.myID = 191334024612937729
+        self.holidays = ['0928', '1012', '1111', '1126', '1127']
+
+
+    def checkHoliday(self, dateTC):
+        print('checkHoliday was called')
+        isHoliday = False
+        for d in self.holidays:
+            if dateTC == d:
+                isHoliday = True
+                break
+        return isHoliday
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -41,9 +41,9 @@ class bellSch(commands.Cog):
 
     @commands.command(aliases=['ah'])
     async def addholiday(self, ctx, date):
-        if ctx.author.id == myID:
+        if ctx.author.id == self.myID:
             if date != '' and len(str(date)) != 4:
-                holidays.append(str(date))
+                self.holidays.append(str(date))
                 await ctx.send(f'Added holiday, {date}!')
             else:
                 ctx.send('Please input a proper date.')
@@ -55,14 +55,14 @@ class bellSch(commands.Cog):
         currentSec = datetime.datetime.now().strftime('%S')
         currentDate = datetime.datetime.now().strftime('%m%d')
 
-        tServer = self.client.get_guild(tServerID)
-        tChannel = tServer.get_channel(tChannelID)
-        tRole = tServer.get_role(tRoleID)
+        tServer = self.client.get_guild(self.tServerID)
+        tChannel = tServer.get_channel(self.tChannelID)
+        tRole = tServer.get_role(self.tRoleID)
 
-        if  dayOfWeek == 5 and dayOfWeek == 6 and checkHoliday(currentDate):#lambda d: d == currentDate, holidays:
+        if dayOfWeek == 5 and dayOfWeek == 6 and self.checkHoliday(currentDate):#lambda d: d == currentDate, holidays:
             cancel()
             print('The loop was canceled.')
-        print('The loops was not canceled.')
+        print('The loop was not canceled.')
         print("It's a day of the week")
         print(f"It's {currentSec} into the minute")
 
