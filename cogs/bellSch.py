@@ -47,7 +47,7 @@ class bellSch(commands.Cog):
             else:
                 ctx.send('Please input a proper date.')
 
-    @tasks.loop(seconds=60, count=None, reconnect=True)
+    @tasks.loop(seconds=3, count=None, reconnect=True)
     async def bellSch(self):
         dayOfWeek = datetime.date.today().weekday()
         currentTime = datetime.datetime.now().strftime('%H:%M')
