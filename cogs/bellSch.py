@@ -14,7 +14,7 @@ class bellSch(commands.Cog):
         self.tRoleID = 756238148404510802
         self.myID = 191334024612937729
         self.holidays = ['09/28', '10/12', '11/11', '11/26', '11/27']
-        self.bellSch.start()
+        self.timeChecker.start()
 
 
     def checkHoliday(self, dateTC):
@@ -41,7 +41,7 @@ class bellSch(commands.Cog):
     @commands.command(aliases=['ah', 'aholiday'])
     async def addholiday(self, ctx, date=''):
         if ctx.author.id == self.myID:
-            if date != '' and len(str(date)) == 5:
+            if date != '' and len(str(date)) == 5 and str(date)[2] == '/':
                 self.holidays.append(str(date))
                 await ctx.send(f'Added holiday, {date}!')
                 self.holidays.sort()
@@ -63,7 +63,7 @@ class bellSch(commands.Cog):
             else:
                 await ctx.send(f'{date} is not in the array!')
 
-    @commands.command(aliases=['hl', 'lholiday'])
+    @commands.command(aliases=['hl', 'lholiday', 'lh'])
     async def holidaylist(self, ctx):
         self.holidays.sort()
         msgTS = ''
@@ -72,7 +72,7 @@ class bellSch(commands.Cog):
         await ctx.send(f'The holidays I have are:\n{msgTS}')
 
     @tasks.loop(seconds=60, count=None, reconnect=True)
-    async def bellSch(self):
+    async def timeChecker(self):
         dayOfWeek = datetime.date.today().weekday()
         currentTime = datetime.datetime.now().strftime('%H:%M')
         currentSec = datetime.datetime.now().strftime('%S')
@@ -191,8 +191,8 @@ class bellSch(commands.Cog):
                 print('Period 9 has ended!')
                 await tChannel.send(f'{tRole.mention} Period 9 has ended!')
             
-    @bellSch.before_loop
-    async def before_bellSch(self):
+    @timeChecker.before_loop
+    async def before_timeChecker(self):
         print('Waiting for bot to start')
         await self.client.wait_until_ready()
         print('Bot is ready, starting loop')
