@@ -21,7 +21,7 @@ class bellSch(commands.Cog):
         print('checkHoliday was called')
         isHoliday = False
         for d in self.holidays:
-            if dateTC == d:
+            if str(dateTC) == d:
                 isHoliday = True
                 break
         return isHoliday
@@ -59,7 +59,9 @@ class bellSch(commands.Cog):
         tRole = tServer.get_role(self.tRoleID)
 
         isaHoliday = self.checkHoliday(currentDate)
-        
+
+        print(f'isaHoliday = {isaHoliday} with the date of {currentDate}')
+
         if dayOfWeek == 5 and dayOfWeek == 6 and isaHoliday:#lambda d: d == currentDate, holidays:
             self.bellSch.cancel()
             print('The loop was canceled.')
