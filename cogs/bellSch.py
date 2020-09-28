@@ -59,13 +59,13 @@ class bellSch(commands.Cog):
         tRole = tServer.get_role(tRoleID)
 
         if  dayOfWeek == 5 and dayOfWeek == 6 and checkHoliday(currentDate):#lambda d: d == currentDate, holidays:
-            bellSch.cancel()
+            cancel()
             print('The loop was canceled.')
-
+        print('The loops was not canceled.')
         print("It's a day of the week")
         print(f"It's {currentSec} into the minute")
 
-        if currentTime == '07:23':
+        """ if currentTime == '07:23':
             print('Period 1 starts in 5 minutes!')
             await tChannel.send(f'{tRole.mention} Period 1 starts in 5 minutes!')
         elif currentTime == '07:28':
@@ -159,7 +159,7 @@ class bellSch(commands.Cog):
             await tChannel.send(f'{tRole.mention} Period 9 ends in 5 minutes!')
         elif currentTime == '14:05':
             print('Period 9 has ended!')
-            await tChannel.send(f'{tRole.mention} Period 9 has ended!')
+            await tChannel.send(f'{tRole.mention} Period 9 has ended!') """
             
     @bellSch.before_loop
     async def before_bellSch(self):
