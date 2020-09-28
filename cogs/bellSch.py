@@ -41,11 +41,11 @@ class bellSch(commands.Cog):
     @commands.command(aliases=['ah', 'aholiday'])
     async def addholiday(self, ctx, date=''):
         if ctx.author.id == self.myID:
-            if date != '' and len(str(date)) != 5:
+            if date != '' and len(str(date)) == 5:
                 self.holidays.append(str(date))
                 await ctx.send(f'Added holiday, {date}!')
             else:
-                ctx.send('Please input a proper date.')
+                await ctx.send('Please input a proper date.')
 
     @commands.command(aliases=['rh', 'rholiday'])
     async def removeholiday(self, ctx, date=''):
@@ -60,7 +60,7 @@ class bellSch(commands.Cog):
                 self.holidays.remove(date)
                 await ctx.send(f'{date} has been removed from the array.')
             else:
-                ctx.send(f'{date} is not in the array!')
+                await ctx.send(f'{date} is not in the array!')
 
     @commands.command(aliases=['hl', 'lholiday'])
     async def holidaylist(self, ctx):
@@ -69,7 +69,7 @@ class bellSch(commands.Cog):
             msgTS += d + ' '
         await ctx.send(msgTS)
 
-    @tasks.loop(seconds=3, count=None, reconnect=True)
+    @tasks.loop(seconds=60, count=None, reconnect=True)
     async def bellSch(self):
         dayOfWeek = datetime.date.today().weekday()
         currentTime = datetime.datetime.now().strftime('%H:%M')
