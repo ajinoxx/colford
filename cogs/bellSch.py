@@ -66,7 +66,7 @@ class bellSch(commands.Cog):
         #    self.bellSch.cancel()
         #    print('The loop was canceled.')
         
-        if dayOfWeek != 5 and dayOfWeek != 6 or not isaHoliday:
+        if dayOfWeek != 5 and dayOfWeek != 6 and not isaHoliday:
             print('The loop was not canceled.')
             print("It's a day of the week")
             print(f"It's {currentSec} into the minute")
