@@ -49,7 +49,7 @@ class bellSch(commands.Cog):
 
     @commands.command(aliases=['hl'])
     async def holidayslist(self, ctx):
-        await ctx.send(holidays)
+        await ctx.send(self.holidays)
 
     @tasks.loop(seconds=3, count=None, reconnect=True)
     async def bellSch(self):
