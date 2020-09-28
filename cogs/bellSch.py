@@ -27,11 +27,13 @@ class bellSch(commands.Cog):
         return isHoliday
 
     def checkFormat(self, date):
-        print('checkFormat was called')
+        print('checkFormat was called.')
         if date != '' and len(str(date)) == 5 and str(date)[2] == '/':
+            print('Passed first check.')
             month = int(str(date)[0:2])
             days = int(str(date)[3:])
-            if month < 12:
+            if month > 12:
+                print('Month > 12')
                 return False
             elif month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
                 if days <= 31:
@@ -43,7 +45,6 @@ class bellSch(commands.Cog):
                 if days <= 29:
                     return True
         return False
-
 
     @commands.Cog.listener()
     async def on_ready(self):
