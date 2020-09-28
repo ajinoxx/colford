@@ -65,6 +65,7 @@ class bellSch(commands.Cog):
 
     @commands.command(aliases=['hl', 'lholiday'])
     async def holidaylist(self, ctx):
+        self.holidays.sort()
         msgTS = ''
         for d in self.holidays:
             msgTS += d + ' '
