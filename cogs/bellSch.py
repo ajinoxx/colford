@@ -62,7 +62,7 @@ class bellSch(commands.Cog):
 
         print(f'isaHoliday = {isaHoliday} with the date of {currentDate}')
 
-        if dayOfWeek == 5 and dayOfWeek == 6 and isaHoliday:#lambda d: d == currentDate, holidays:
+        if dayOfWeek == 5 or dayOfWeek == 6 or isaHoliday:#lambda d: d == currentDate, holidays:
             self.bellSch.cancel()
             print('The loop was canceled.')
         print('The loop was not canceled.')
