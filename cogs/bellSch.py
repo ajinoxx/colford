@@ -9,7 +9,7 @@ import datetime
 class bellSch(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.client.bellSch.start()
+        #self.client.bellSch.start()
 
         self.tServerID = 543185885232103434 #Big brainus
         self.tChannelID = 756194795411603547 #bells
