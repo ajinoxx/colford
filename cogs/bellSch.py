@@ -9,13 +9,12 @@ import datetime
 class bellSch(commands.Cog):
     def __init__(self, client):
         self.client = client
-        #self.client.bellSch.start()
-
         self.tServerID = 543185885232103434 #Big brainus
         self.tChannelID = 756194795411603547 #bells
         self.tRoleID = 756238148404510802
         self.myID = 191334024612937729
         self.holidays = ['0928', '1012', '1111', '1126', '1127']
+        self.bellSch.start()
 
 
     def checkHoliday(self, dateTC):
@@ -60,7 +59,7 @@ class bellSch(commands.Cog):
         tRole = tServer.get_role(self.tRoleID)
 
         if dayOfWeek == 5 and dayOfWeek == 6 and self.checkHoliday(currentDate):#lambda d: d == currentDate, holidays:
-            cancel()
+            self.bellSch.cancel()
             print('The loop was canceled.')
         print('The loop was not canceled.')
         print("It's a day of the week")
