@@ -31,13 +31,14 @@ class bellSch(commands.Cog):
     async def bellSch(self):
         dayOfWeek = datetime.date.today().weekday()
         currentTime = datetime.datetime.now().strftime('%H:%M')
-        currentSec = datetime.datetime.now().strftime('%S')       
+        currentSec = datetime.datetime.now().strftime('%S')
+        currentDate = datetime.datetime.now().strftime('%m%d')
 
         tServer = self.client.get_guild(tServerID)
         tChannel = tServer.get_channel(tChannelID)
         tRole = tServer.get_role(tRoleID)
 
-        if  dayOfWeek != 5 and dayOfWeek != 6:
+        if  dayOfWeek != 5 and dayOfWeek != 6 and currentDate != '0928':
             print("It's a day of the week")
             print(f"It's {currentSec} into the minute")
 
