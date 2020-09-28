@@ -106,7 +106,7 @@ class bellSch(commands.Cog):
         #if dayOfWeek == 5 or dayOfWeek == 6 or isaHoliday:#lambda d: d == currentDate, holidays:
         #    self.bellSch.cancel()
         #    print('The loop was canceled.')
-        
+        print('Checking if it is a holiday or weekend')
         if dayOfWeek != 5 and dayOfWeek != 6 and not isaHoliday:
             print('The loop was not canceled.')
             print("It's a day of the week")
