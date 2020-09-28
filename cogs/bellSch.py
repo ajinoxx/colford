@@ -26,6 +26,25 @@ class bellSch(commands.Cog):
                 break
         return isHoliday
 
+    def checkFormat(self, date):
+        print('checkFormat was called')
+        if date != '' and len(str(date)) == 5 and str(date)[2] == '/':
+            month = int(str(date)[0:2])
+            days = int(str(date)[3:])
+            if month < 12:
+                return False
+            elif month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
+                if days <= 31:
+                    return True
+            elif month == 4 or month == 6 or month == 9 or month == 11:
+                if days <= 30:
+                    return True
+            elif month == 2:
+                if days <= 29:
+                    return True
+        return False
+
+
     @commands.Cog.listener()
     async def on_ready(self):
         print('SchBot ready')
@@ -41,10 +60,9 @@ class bellSch(commands.Cog):
     @commands.command(aliases=['ah', 'aholiday'])
     async def addholiday(self, ctx, date=''):
         if ctx.author.id == self.myID:
-            if date != '' and len(str(date)) == 5 and str(date)[2] == '/':
+            if self.checkFormat(date):
                 self.holidays.append(str(date))
                 await ctx.send(f'Added holiday, {date}!')
-                self.holidays.sort()
             else:
                 await ctx.send('Please input a proper date.')
 
@@ -59,7 +77,6 @@ class bellSch(commands.Cog):
             if hasDate == True:
                 self.holidays.remove(date)
                 await ctx.send(f'{date} has been removed from the array.')
-                self.holidays.sort()
             else:
                 await ctx.send(f'{date} is not in the array!')
 
