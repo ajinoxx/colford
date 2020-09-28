@@ -44,6 +44,7 @@ class bellSch(commands.Cog):
             if date != '' and len(str(date)) == 5:
                 self.holidays.append(str(date))
                 await ctx.send(f'Added holiday, {date}!')
+                self.holidays.sort()
             else:
                 await ctx.send('Please input a proper date.')
 
@@ -53,12 +54,12 @@ class bellSch(commands.Cog):
             hasDate = False
             for d in self.holidays:
                 if date == d:
-                    print(f'{date} is in the array.')
                     hasDate = True
                     break
             if hasDate == True:
                 self.holidays.remove(date)
                 await ctx.send(f'{date} has been removed from the array.')
+                self.holidays.sort()
             else:
                 await ctx.send(f'{date} is not in the array!')
 
@@ -67,7 +68,7 @@ class bellSch(commands.Cog):
         msgTS = ''
         for d in self.holidays:
             msgTS += d + ' '
-        await ctx.send(msgTS)
+        await ctx.send(f'The holidays I have are:\n{msgTS}')
 
     @tasks.loop(seconds=60, count=None, reconnect=True)
     async def bellSch(self):
