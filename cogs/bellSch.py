@@ -13,7 +13,7 @@ class bellSch(commands.Cog):
         self.tChannelID = 756194795411603547 #bells
         self.tRoleID = 756238148404510802
         self.myID = 191334024612937729
-        self.holidays = ['0928', '1012', '1111', '1126', '1127']
+        self.holidays = ['09/28', '10/12', '11/11', '11/26', '11/27']
         self.bellSch.start()
 
 
@@ -38,25 +38,43 @@ class bellSch(commands.Cog):
         await userDM.send("**Bell Schedule:** ```Period 1: 07:28-08:08\n\nHomeroom: 08:08-08:13\n\nPeriod 2: 08:17-08:57\n\nPeriod 3: 09:01-09:41\n\nPeriod 4: 09:45-10:25\n\nPeriod 5: 10:29-11:09\n\nPeriod 6: 11:13-11:53\n\nPeriod 7: 11:57-12:37\n\nPeriod 8: 12:41-01:21\n\nPeriod 9: 01:25-02:05```")
         await ctx.send('Sent you a schedule! Check your DMs.')
 
-    @commands.command(aliases=['ah'])
-    async def addholiday(self, ctx, date):
+    @commands.command(aliases=['ah', 'aholiday'])
+    async def addholiday(self, ctx, date=''):
         if ctx.author.id == self.myID:
-            if date != '' and len(str(date)) != 4:
+            if date != '' and len(str(date)) != 5:
                 self.holidays.append(str(date))
                 await ctx.send(f'Added holiday, {date}!')
             else:
                 ctx.send('Please input a proper date.')
 
-    @commands.command(aliases=['hl'])
-    async def holidayslist(self, ctx):
-        await ctx.send(self.holidays)
+    @commands.command(aliases=['rh', 'rholiday'])
+    async def removeholiday(self, ctx, date=''):
+        if ctx.author.id == self.myID:
+            hasDate = False
+            for d in self.holidays:
+                if date == d:
+                    print(f'{date} is in the array.')
+                    hasDate = True
+                    break
+            if hasDate == True:
+                self.holidays.remove(date)
+                await ctx.send(f'{date} has been removed from the array.')
+            else:
+                ctx.send(f'{date} is not in the array!')
+
+    @commands.command(aliases=['hl', 'lholiday'])
+    async def holidaylist(self, ctx):
+        msgTS = ''
+        for d in self.holidays:
+            msgTS += d + ' '
+        await ctx.send(msgTS)
 
     @tasks.loop(seconds=3, count=None, reconnect=True)
     async def bellSch(self):
         dayOfWeek = datetime.date.today().weekday()
         currentTime = datetime.datetime.now().strftime('%H:%M')
         currentSec = datetime.datetime.now().strftime('%S')
-        currentDate = datetime.datetime.now().strftime('%m%d')
+        currentDate = datetime.datetime.now().strftime('%m/%d')
 
         tServer = self.client.get_guild(self.tServerID)
         tChannel = tServer.get_channel(self.tChannelID)
