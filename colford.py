@@ -143,7 +143,7 @@ async def unmute(ctx, tag : discord.Member):
 @client.command(aliases=['v'])
 async def version(ctx):
     if ctx.author.id == myID:
-        await ctx.send('Bot version 1.2.1')
+        await ctx.send('Bot version 1.5.0')
 
 @client.command()
 async def dow(ctx):
