@@ -14,6 +14,7 @@ myID = 191334024612937729
 holidays = ['0928', '1012', '1111', '1126', '1127']
 
 def checkHoliday(cdate):
+        print('checkHoliday was called')
         isHoliday = False
         for d in holidays:
             if cdate == d:
