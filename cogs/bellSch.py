@@ -58,7 +58,7 @@ class bellSch(commands.Cog):
         tChannel = tServer.get_channel(self.tChannelID)
         tRole = tServer.get_role(self.tRoleID)
 
-        if dayOfWeek == 5 and dayOfWeek == 6 and self.checkHoliday(currentDate):#lambda d: d == currentDate, holidays:
+        if dayOfWeek == 5 and dayOfWeek == 6 and self.bellSch.checkHoliday(currentDate):#lambda d: d == currentDate, holidays:
             self.bellSch.cancel()
             print('The loop was canceled.')
         print('The loop was not canceled.')
