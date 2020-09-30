@@ -94,11 +94,9 @@ async def on_raw_reaction_add(payload):
         guildObj = client.get_guild(payload.guild_id)
         memObj = guildObj.get_member(payload.user_id)
         if memObj != None:
-            if discord.utils.find(lambda r: r.id == NSFWID,memObj.roles):
-                print('Member that added the NSFW has the NSFW role.')
-                roleObj = guildObj.get_role(NSFWID)
-                await memObj.add_roles(roleObj)
-                print(f'{memObj} got the role of {roleObj.name}')
+            roleObj = guildObj.get_role(NSFWID)
+            await memObj.add_roles(roleObj)
+            print(f'{memObj} got the role of {roleObj.name}')
 
 @client.event
 async def on_raw_reaction_remove(payload):
