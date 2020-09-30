@@ -8,12 +8,7 @@ from datetime import datetime
 import os
 
 intents = discord.Intents.default()
-
-intents.on_member_join = True
-intents.on_member_remove = True
-intents.on_raw_reaction_add = True
-intents.on_raw_reaction_remove = True
-
+intents.members = True
 
 client = commands.Bot(command_prefix = '.', intents = intents)
 
