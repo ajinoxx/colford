@@ -7,7 +7,7 @@ from datetime import datetime
 #heroku
 import os
 
-intents = discord.intents.default()
+intents = discord.Intents.default()
 intents.members = True
 
 client = commands.Bot(command_prefix = '.', intents = intents)
