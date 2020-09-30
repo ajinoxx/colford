@@ -7,7 +7,15 @@ from datetime import datetime
 #heroku
 import os
 
-client = commands.Bot(command_prefix = '.')
+intents = discord.Intents.default()
+
+intents.on_member_join() = True
+intents.on_member_remove() = False
+intents.on_raw_reaction_add() = True
+intents.on_raw_reaction_remove() = True
+
+
+client = commands.Bot(command_prefix = '.', intents = intents)
 
 scienceClubID = 760895586659467334
 biggusBrainusID = 543185885232103434
