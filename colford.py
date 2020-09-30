@@ -46,22 +46,29 @@ async def on_member_join(member):
     print(f'{member} joined the server.')
     #member.guild gives the guild
     #mainChannel = client.get_channel(mainBBID)
-    mainChannel = member.guild.get_channel(mainBBID)
-    if mainChannel == None:
+    if member.guild.id == biggusBrainusID:
+        mainChannel = member.guild.get_channel(mainBBID)
+        role = member.guild.get_role(starterID)
+    if member.guild.id == scienceClubID:
         mainChannel = member.guild.get_channel(mainSCID)
+        role = member.guild.get_role(starterSCID)
     await mainChannel.send(f'{member.mention} ({member}) joined the server.')
     #await member.dm_channel.send("Welcome to Biggus Brainus!\nIf you'd like to get notified on class bell updates, make you sure you check out the roles channel.")
     if member.id != trooperID:
-        role = member.guild.get_role(starterID) #discord.utils.get(member.guild.roles, id=starterID) #Make sure IrvinsMom role is ABOVE the target role
-        if role == None:
-            role = member.guild.get_role(starterSCID)
+        #role = member.guild.get_role(starterID) #discord.utils.get(member.guild.roles, id=starterID) #Make sure IrvinsMom role is ABOVE the target role
+        #if role == None:
+        #    role = member.guild.get_role(starterSCID)
         await member.add_roles(role)
 
 @client.event
 async def on_member_remove(member):
     print(f'{member} left the server.') 
-    mainChannel = member.guild.get_channel(mainBBID)
-    if mainChannel == None:
+    #mainChannel = member.guild.get_channel(mainBBID)
+    #if mainChannel == None:
+    #    mainChannel = member.guild.get_channel(mainSCID)
+    if member.guild.id == biggusBrainusID:
+        mainChannel = member.guild.get_channel(mainBBID)
+    if member.guild.id == scienceClubID:
         mainChannel = member.guild.get_channel(mainSCID)
     await mainChannel.send(f'{member.mention} ({member}) left the server.')
 
