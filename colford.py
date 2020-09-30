@@ -52,6 +52,7 @@ async def on_member_join(member):
     if member.guild.id == scienceClubID:
         mainChannel = member.guild.get_channel(mainSCID)
         role = member.guild.get_role(starterSCID)
+    print(mainChannel)
     await mainChannel.send(f'{member.mention} ({member}) joined the server.')
     #await member.dm_channel.send("Welcome to Biggus Brainus!\nIf you'd like to get notified on class bell updates, make you sure you check out the roles channel.")
     if member.id != trooperID:
@@ -70,6 +71,7 @@ async def on_member_remove(member):
         mainChannel = member.guild.get_channel(mainBBID)
     if member.guild.id == scienceClubID:
         mainChannel = member.guild.get_channel(mainSCID)
+    print(mainChannel)
     await mainChannel.send(f'{member.mention} ({member}) left the server.')
 
 @client.event
