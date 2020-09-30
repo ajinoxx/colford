@@ -31,6 +31,7 @@ myID = 191334024612937729
 
 bellMsgID = 757598815351078962
 bellRoleID = 756238148404510802
+NSFWID = 760934769818730557
 
 muteID = 543921175722721289
 
@@ -88,18 +89,38 @@ async def on_raw_reaction_add(payload):
             roleObj = guildObj.get_role(bellRoleID)
             await memObj.add_roles(roleObj)
             print(f'{memObj} got the role of {roleObj.name}')
+    elif payload.message_id == bellMsgID and payload.emoji.name == '😳':
+        print('Someone has added a NSFW from the reactions message.')
+        guildObj = client.get_guild(payload.guild_id)
+        memObj = guildObj.get_member(payload.user_id)
+        if memObj != None:
+            if discord.utils.find(lambda r: r.id == NSFWID,memObj.roles):
+                print('Member that added the NSFW has the NSFW role.')
+                roleObj = guildObj.get_role(NSFWID)
+                await memObj.add_roles(roleObj)
+                print(f'{memObj} got the role of {roleObj.name}')
 
 @client.event
 async def on_raw_reaction_remove(payload):
     print(f'Someone has removed a reaction ({payload.emoji.name})to a message.')
     if payload.message_id == bellMsgID and payload.emoji.name == '🔔':
-        print('Someone has removed a bell from the bell message.')
+        print('Someone has removed a bell from the reactions message.')
         guildObj = client.get_guild(payload.guild_id)
         memObj = guildObj.get_member(payload.user_id)
         if memObj != None:
             if discord.utils.find(lambda r: r.id == bellRoleID,memObj.roles):
                 print('Member that removed the reaction has the bell role.')
                 roleObj = guildObj.get_role(bellRoleID)
+                await memObj.remove_roles(roleObj)
+                print(f'{memObj} lost the role of {roleObj.name}')
+    elif payload.message_id == bellMsgID and payload.emoji.name == '😳':
+        print('Someone has removed a NSFW from the reactions message.')
+        guildObj = client.get_guild(payload.guild_id)
+        memObj = guildObj.get_member(payload.user_id)
+        if memObj != None:
+            if discord.utils.find(lambda r: r.id == NSFWID,memObj.roles):
+                print('Member that removed the reaction has the NSFW role.')
+                roleObj = guildObj.get_role(NSFWID)
                 await memObj.remove_roles(roleObj)
                 print(f'{memObj} lost the role of {roleObj.name}')
 
