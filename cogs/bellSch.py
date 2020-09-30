@@ -16,7 +16,6 @@ class bellSch(commands.Cog):
         self.holidays = ['09/28', '10/12', '11/11', '11/26', '11/27']
         self.timeChecker.start()
 
-
     def checkHoliday(self, dateTC):
         print('checkHoliday was called')
         isHoliday = False
@@ -56,6 +55,16 @@ class bellSch(commands.Cog):
             userDM = await ctx.author.create_dm()
         await userDM.send("**Bell Schedule:** ```Period 1: 07:28-08:08\n\nHomeroom: 08:08-08:13\n\nPeriod 2: 08:17-08:57\n\nPeriod 3: 09:01-09:41\n\nPeriod 4: 09:45-10:25\n\nPeriod 5: 10:29-11:09\n\nPeriod 6: 11:13-11:53\n\nPeriod 7: 11:57-12:37\n\nPeriod 8: 12:41-01:21\n\nPeriod 9: 01:25-02:05```")
         await ctx.send('Sent you a schedule! Check your DMs.')
+
+    @commands.command()
+    async def stoploop(self, ctx):
+        if ctx.author.id == self.myID:
+            self.timeChecker.cancel()
+
+    @commands.command()
+    async def startloop(self, ctx):
+        if ctx.author.id == self.myID:
+            self.timeChecker.start()
 
     @commands.command(aliases=['ah', 'aholiday'])
     async def addholiday(self, ctx, date=''):
