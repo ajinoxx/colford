@@ -13,7 +13,7 @@ class bellSch(commands.Cog):
         self.tChannelID = 756194795411603547 #bells
         self.tRoleID = 756238148404510802
         self.myID = 191334024612937729
-        self.holidays = ['09/28', '10/12', '11/11', '11/26', '11/27']
+        self.holidays = ['11/26', '11/27']
         self.timeChecker.start()
 
     def checkHoliday(self, dateTC):
