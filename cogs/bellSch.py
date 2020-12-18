@@ -11,6 +11,7 @@ class bellSch(commands.Cog):
         self.client = client
         self.tServerID = 543185885232103434 #Big brainus
         self.tChannelID = 756194795411603547 #bells
+        #self.holidaysID = 789535539325698088 #holidays channel
         self.tRoleID = 756238148404510802
         self.myID = 191334024612937729
         self.holidays = ['12/24', '12/25', '12/28', '12/29', '12/30', '12/31', '01/01']
@@ -19,6 +20,7 @@ class bellSch(commands.Cog):
     def checkHolidayIO(self, dateTC):
         print('checkHolidayIO was called')
         fp = open("holidays.txt", "r")
+
         date = fp.read(5)
         while date != "":
             if(date == str(dateTC)):
@@ -44,7 +46,6 @@ class bellSch(commands.Cog):
 
     def removeHolidayIO(self, dateTR):
         print('removeHolidayIO was called')
-
         fp = open("holidays.txt", "r")
         # Locate the date to remove
         slocation = -2
@@ -135,50 +136,50 @@ class bellSch(commands.Cog):
 
     @commands.command(aliases=['ah', 'aholiday'])
     async def addholiday(self, ctx, date=''):
-        if ctx.author.id == self.myID:
-            if date == '':
-                date = datetime.datetime.now().strftime('%m/%d')
+        # if ctx.author.id == self.myID:
+        #     if date == '':
+        #         date = datetime.datetime.now().strftime('%m/%d')
+        #     if self.checkFormat(date):
+        #         self.writeHolidayIO(date)
+        #         await ctx.send(f'Added holiday, {date}!')
+        #     else:
+        #         await ctx.send('Please input a proper date.')
             if self.checkFormat(date):
-                self.writeHolidayIO(date)
+                self.holidays.append(str(date))
+                self.holidays.sort()
                 await ctx.send(f'Added holiday, {date}!')
             else:
                 await ctx.send('Please input a proper date.')
-            # if self.checkFormat(date):
-            #     self.holidays.append(str(date))
-            #     self.holidays.sort()
-            #     await ctx.send(f'Added holiday, {date}!')
-            # else:
-            #     await ctx.send('Please input a proper date.')
 
     @commands.command(aliases=['rh', 'rholiday'])
     async def removeholiday(self, ctx, date=''):
-        if ctx.author.id == self.myID:
-            hasDate = self.checkHolidayIO(date)
-            if hasDate and date != '':
-                self.removeHolidayIO(date)
-                await ctx.send(f'{date} has been removed.')
+        # if ctx.author.id == self.myID:
+        #     hasDate = self.checkHolidayIO(date)
+        #     if hasDate and date != '':
+        #         self.removeHolidayIO(date)
+        #         await ctx.send(f'{date} has been removed.')
+        #     else:
+        #         await ctx.send(f'{date} is not on the list!')
+            hasDate = False
+            for d in self.holidays:
+                if date == d:
+                    hasDate = True
+                    break
+            if hasDate == True:
+                self.holidays.remove(date)
+                await ctx.send(f'{date} has been removed from the array.')
             else:
-                await ctx.send(f'{date} is not on the list!')
-            # hasDate = False
-            # for d in self.holidays:
-            #     if date == d:
-            #         hasDate = True
-            #         break
-            # if hasDate == True:
-            #     self.holidays.remove(date)
-            #     await ctx.send(f'{date} has been removed from the array.')
-            # else:
-            #     await ctx.send(f'{date} is not in the array!')
+                await ctx.send(f'{date} is not in the array!')
 
     @commands.command(aliases=['hl', 'lholiday', 'lh'])
     async def holidaylist(self, ctx):
-        # self.holidays.sort()
-        # msgTS = ''
-        # for d in self.holidays:
-        #     msgTS += d + ' '
-        # await ctx.send(f'The holidays I have are:\n{msgTS}')
-        dates = self.readHolidayIO()
-        await ctx.send(f'The holidays I have are:\n{dates}')
+        self.holidays.sort()
+        msgTS = ''
+        for d in self.holidays:
+            msgTS += d + ' '
+        await ctx.send(f'The holidays I have are:\n{msgTS}')
+        # dates = self.readHolidayIO()
+        # await ctx.send(f'The holidays I have are:\n{dates}')
 
     @tasks.loop(seconds=60, count=None, reconnect=True)
     async def timeChecker(self):
@@ -191,8 +192,8 @@ class bellSch(commands.Cog):
         tChannel = tServer.get_channel(self.tChannelID)
         tRole = tServer.get_role(self.tRoleID)
 
-        # isaHoliday = self.checkHoliday(currentDate)
-        isaHoliday = self.checkHolidayIO(currentDate)
+        isaHoliday = self.checkHoliday(currentDate)
+        # isaHoliday = self.checkHolidayIO(currentDate)
 
         print(f'isaHoliday = {isaHoliday} with the date of {currentDate}')
 
