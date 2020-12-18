@@ -131,17 +131,20 @@ async def ping(ctx):
 async def clear(ctx, amount=5):
     try:    
         if amount <= 0:
-                await ctx.send('Cannot clear an amount less than 1.')
-                return
+            await ctx.send('Cannot clear an amount less than 1.')
+            return
+        elif amount > 10:
+            await ctx.send('Cannot clear an amount more than 10.')
+            return
         elif discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):
             print(f'{ctx.message.author} has admin role, clearing {amount} messages in {ctx.channel}.')    
-            await ctx.channel.purge(limit=amount)
+            await ctx.channel.purge(limit=amount+1)
             numMessage = await ctx.send(f'Cleared {amount} messages.')
             await ctx.guild.get_channel(logsID).send(f'{ctx.author.mention} ({ctx.author}) cleared {amount} messages in {ctx.channel.mention} ({ctx.channel}).')
             await numMessage.delete(delay=3)
         elif discord.utils.find(lambda r: r.id == boardID, ctx.message.author.roles):
             print(f'{ctx.message.author} has admin role, clearing {amount} messages in {ctx.channel}.')    
-            await ctx.channel.purge(limit=amount)
+            await ctx.channel.purge(limit=amount+1)
             numMessage = await ctx.send(f'Cleared {amount} messages.')
             await ctx.guild.get_channel(logsSCID).send(f'{ctx.author.mention} ({ctx.author}) cleared {amount} messages in {ctx.channel.mention} ({ctx.channel}).')
             await numMessage.delete(delay=3)
@@ -157,6 +160,9 @@ async def clearUser(ctx, tag : discord.abc.User, amount=10):
             return m.author == tag
         if amount <= 0:
             await ctx.send('Cannot clear an amount less than 1.')
+            return
+        elif amount > 10:
+            await ctx.send('Cannot clear an amount more than 10.')
             return
         elif discord.utils.find(lambda r: r.id == adminID, ctx.message.author.roles):                       
             deleted = await ctx.channel.purge(limit=amount, check=is_user)
